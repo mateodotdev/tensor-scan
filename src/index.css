@@ -1,11 +1,5 @@
-/* ========================================
-   TensorScan - Bittensor Transaction Viewer
-   Solprice.now inspired minimal design
-   ======================================== */
 
-/* CSS Variables */
 :root {
-  /* Colors - Minimal dark palette (softer blacks) */
   --bg-primary: #0d0d0d;
   --bg-secondary: #111111;
   --bg-card: #141414;
@@ -76,7 +70,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle background glow */
+
 body::before {
   content: '';
   position: fixed;
@@ -103,7 +97,7 @@ a:hover {
   min-height: 100vh;
 }
 
-/* Small caps utility class */
+
 .small-caps {
   text-transform: uppercase;
   letter-spacing: 0.1em;

@@ -1,0 +1,120 @@
+.table-container {
+  overflow-x: auto;
+  border-top: 1px solid var(--border-color);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+thead {
+  background: transparent;
+}
+
+th {
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.6rem;
+  text-transform: lowercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--transition-fast);
+}
+
+th:hover {
+  color: var(--text-secondary);
+}
+
+th .sort-icon {
+  opacity: 0.3;
+  margin-left: var(--spacing-xs);
+  font-size: 0.5rem;
+}
+
+th .sort-icon.sorted {
+  opacity: 1;
+  color: var(--accent-primary);
+}
+
+td {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.6rem;
+  font-weight: 500;
+  text-transform: lowercase;
+  letter-spacing: 0.12em;
+}
+
+.badge-sent {
+  background: rgba(255, 68, 68, 0.08);
+  color: var(--error);
+}
+
+.badge-received {
+  background: rgba(0, 255, 136, 0.08);
+  color: var(--success);
+}
+
+.amount {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.amount-sent {
+  color: var(--error);
+}
+
+.amount-received {
+  color: var(--success);
+}
+
+.address {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.address a {
+  color: var(--text-muted);
+}
+
+.address a:hover {
+  color: var(--accent-primary);
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    margin: 0 calc(-1 * var(--spacing-sm));
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  th, td {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+}

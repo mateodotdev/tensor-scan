@@ -1,0 +1,20 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg) 0;
+}
+
+.page-info {
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  text-transform: lowercase;
+  letter-spacing: 0.15em;
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    flex-wrap: wrap;
+  }
+}

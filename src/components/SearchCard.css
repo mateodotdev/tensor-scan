@@ -1,0 +1,65 @@
+.card {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xl);
+}
+
+.search-card {
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.input-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: lowercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-sm);
+}
+
+.input-group input[type='text'] {
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  letter-spacing: 0.02em;
+  transition: all var(--transition-fast);
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 1px var(--accent-primary);
+}
+
+.input-group input::placeholder {
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  text-transform: lowercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+.error-message {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: rgba(255, 68, 68, 0.05);
+  border: 1px solid rgba(255, 68, 68, 0.2);
+  border-radius: var(--radius-sm);
+  color: var(--error);
+  font-size: 0.7rem;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+}

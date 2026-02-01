@@ -1,16 +1,34 @@
 .table-container {
   display: block;
   width: 100%;
-  max-width: 100%;
   overflow-x: auto;
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
   border-top: 1px solid var(--border-color);
 }
 
+/* Custom scrollbar for webkit browsers */
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: var(--border-color-hover);
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
 table {
   width: 100%;
-  min-width: 500px;
+  min-width: 600px;
   border-collapse: collapse;
   font-size: 0.8rem;
 }
@@ -53,6 +71,7 @@ td {
   padding: var(--spacing-md) var(--spacing-lg);
   border-bottom: 1px solid var(--border-color);
   color: var(--text-secondary);
+  white-space: nowrap;
 }
 
 tr:last-child td {
@@ -114,32 +133,17 @@ tr:hover td {
 
 @media (max-width: 768px) {
   .table-container {
-    margin: 0 calc(-1 * var(--spacing-md));
-    padding: 0 var(--spacing-sm);
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
+    margin: 0;
+    padding-bottom: var(--spacing-sm);
   }
 
   table {
-    min-width: 450px;
+    min-width: 550px;
   }
 
   th, td {
     padding: var(--spacing-sm) var(--spacing-sm);
     font-size: 0.7rem;
-  }
-
-  /* Hide Fee column (5th) on tablet */
-  th:nth-child(5),
-  td:nth-child(5) {
-    display: none;
-  }
-
-  /* Hide Tx Hash column (6th) on tablet */
-  th:nth-child(6),
-  td:nth-child(6) {
-    display: none;
   }
 
   .amount {
@@ -157,28 +161,17 @@ tr:hover td {
 }
 
 @media (max-width: 480px) {
-  .table-container {
-    margin: 0 calc(-1 * var(--spacing-sm));
-    padding: 0;
-  }
-
   table {
-    min-width: 320px;
+    min-width: 500px;
     font-size: 0.65rem;
   }
 
   th, td {
-    padding: var(--spacing-xs) var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
   }
 
   th {
     font-size: 0.5rem;
-  }
-
-  /* Hide From/To column (4th) on mobile */
-  th:nth-child(4),
-  td:nth-child(4) {
-    display: none;
   }
 
   .amount {
@@ -189,5 +182,8 @@ tr:hover td {
     font-size: 0.5rem;
     padding: 1px 3px;
   }
-}
 
+  .address {
+    font-size: 0.6rem;
+  }
+}

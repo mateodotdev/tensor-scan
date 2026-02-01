@@ -8,6 +8,9 @@ export function formatAmount(amount: number): string {
 }
 
 export function formatDate(date: Date): string {
+  if (!date || isNaN(date.getTime())) {
+    return 'N/A';
+  }
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',

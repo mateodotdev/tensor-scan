@@ -52,6 +52,18 @@
   letter-spacing: 0.12em;
 }
 
+.input-group input[aria-invalid='true'] {
+  border-color: var(--warning);
+}
+
+.validation-hint {
+  margin-top: var(--spacing-sm);
+  font-size: 0.65rem;
+  color: var(--warning);
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+}
+
 .error-message {
   margin-top: var(--spacing-md);
   padding: var(--spacing-md);
@@ -62,4 +74,23 @@
   font-size: 0.7rem;
   text-transform: lowercase;
   letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: var(--spacing-lg);
+  }
+
+  .search-card {
+    max-width: 100%;
+  }
+
+  .input-group input[type='text'] {
+    font-size: 16px;
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .input-group input::placeholder {
+    font-size: 0.6rem;
+  }
 }

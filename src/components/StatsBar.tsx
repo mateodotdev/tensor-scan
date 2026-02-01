@@ -24,8 +24,8 @@ export function StatsBar({ stats, onExport }: StatsBarProps) {
           {formatAmount(stats.totalReceived)} TAO
         </span>
       </div>
-      <button className="btn btn-secondary" onClick={onExport}>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+      <button className="btn btn-secondary" onClick={onExport} aria-label="Export transactions as CSV">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
           <path d="M8 12l-4-4h2.5V3h3v5H12L8 12z" />
           <path d="M14 13v1H2v-1h12z" />
         </svg>

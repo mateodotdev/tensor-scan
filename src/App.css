@@ -148,6 +148,26 @@
 
 @media (max-width: 768px) {
   .app {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .app {
     padding: var(--spacing-sm);
+  }
+  
+  .hero h1 {
+    font-size: 1.25rem;
+  }
+  
+  .hero p {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .app {
+    padding: var(--spacing-xs) var(--spacing-sm);
   }
 }

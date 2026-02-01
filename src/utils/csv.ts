@@ -1,13 +1,10 @@
 import type { Transaction } from '../types/transaction';
 
 function formatAwakenDate(date: Date): string {
+  const year = String(date.getUTCFullYear()).slice(-2);
   const month = String(date.getUTCMonth() + 1).padStart(2, '0');
   const day = String(date.getUTCDate()).padStart(2, '0');
-  const year = date.getUTCFullYear();
-  const hours = String(date.getUTCHours()).padStart(2, '0');
-  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-  const seconds = String(date.getUTCSeconds()).padStart(2, '0');
-  return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`;
+  return `${year}/${month}/${day}`;
 }
 
 function formatCSVAmount(amount: number): string {
@@ -27,30 +24,33 @@ function escapeCSV(value: string | number | null | undefined): string {
 export function generateAwakenCSV(transactions: Transaction[]): string {
   const headers = [
     'Date',
-    'Sent Quantity',
-    'Sent Currency',
-    'Received Quantity',
-    'Received Currency',
-    'Fee Amount',
-    'Fee Currency',
-    'Transaction Hash',
+    'Asset',
+    'Amount',
+    'Fee',
+    'P&L',
+    'Payment Token',
+    'ID',
     'Notes',
+    'Tag',
+    'Transaction Hash',
   ];
 
   const rows = transactions.map((tx) => {
     const date = formatAwakenDate(tx.date);
     const isSent = tx.type === 'sent';
+    const amount = isSent ? -Math.abs(tx.amount) : Math.abs(tx.amount);
 
     return [
       date,
-      isSent ? formatCSVAmount(tx.amount) : '',
-      isSent ? 'TAO' : '',
-      !isSent ? formatCSVAmount(tx.amount) : '',
-      !isSent ? 'TAO' : '',
-      formatCSVAmount(tx.fee),
       'TAO',
-      tx.txHash,
+      formatCSVAmount(amount),
+      formatCSVAmount(tx.fee),
+      '',
+      'TAO',
+      tx.id,
       `Bittensor ${tx.type} transaction`,
+      isSent ? 'send' : 'receive',
+      tx.txHash,
     ];
   });
 

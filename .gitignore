@@ -22,4 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment and secrets
 .env
+.env.*
+!.env.example
+
+# Debug files
+api_response.json
+*.debug.json
+
+# OS files
+Thumbs.db

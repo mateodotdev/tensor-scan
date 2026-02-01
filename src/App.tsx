@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import "./App.css";
 import type {
   Transaction,
@@ -25,7 +25,8 @@ function App() {
   const [sortField, setSortField] = useState<SortField>("date");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
-  const calculateStats = (): TransactionStats => {
+
+  const stats = useMemo<TransactionStats>(() => {
     return transactions.reduce(
       (acc, tx) => {
         if (tx.type === "sent") acc.totalSent += tx.amount;
@@ -34,11 +35,10 @@ function App() {
       },
       { total: transactions.length, totalSent: 0, totalReceived: 0 }
     );
-  };
+  }, [transactions]);
 
-  const stats = calculateStats();
 
-  const getSortedTransactions = (): Transaction[] => {
+  const sortedTransactions = useMemo(() => {
     return [...transactions].sort((a, b) => {
       const dir = sortDirection === "asc" ? 1 : -1;
       const valA = a[sortField];
@@ -55,9 +55,8 @@ function App() {
       }
       return 0;
     });
-  };
+  }, [transactions, sortField, sortDirection]);
 
-  const sortedTransactions = getSortedTransactions();
   const totalPages = Math.ceil(sortedTransactions.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedTransactions = sortedTransactions.slice(

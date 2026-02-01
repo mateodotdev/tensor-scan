@@ -6,7 +6,7 @@ import type {
   SortDirection,
   TransactionStats,
 } from "./types/transaction";
-import { fetchTransactions, parseTransactions } from "./services/api";
+import { fetchTransactionPage, parseTransactions, PAGE_SIZE } from "./services/api";
 import { generateAwakenCSV, downloadCSV } from "./utils/csv";
 import { Header } from "./components/Header";
 import { SearchCard } from "./components/SearchCard";
@@ -18,10 +18,14 @@ const ITEMS_PER_PAGE = 25;
 
 function App() {
   const [walletAddress, setWalletAddress] = useState<string>("");
+  const [savedAddress, setSavedAddress] = useState<string>("");
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [apiPage, setApiPage] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(false);
   const [sortField, setSortField] = useState<SortField>("date");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
 
@@ -64,6 +68,7 @@ function App() {
     startIndex + ITEMS_PER_PAGE
   );
 
+
   const handleFetchTransactions = useCallback(async (): Promise<void> => {
     const trimmedAddress = walletAddress.trim();
     if (!trimmedAddress) {
@@ -74,11 +79,14 @@ function App() {
     setIsLoading(true);
     setError(null);
     setTransactions([]);
+    setApiPage(1);
+    setHasMore(false);
+    setSavedAddress(trimmedAddress);
 
     try {
-      const rawTransfers = await fetchTransactions(trimmedAddress);
+      const result = await fetchTransactionPage(trimmedAddress, 1);
       const parsedTransactions = parseTransactions(
-        rawTransfers,
+        result.transfers,
         trimmedAddress
       );
 
@@ -87,6 +95,8 @@ function App() {
       } else {
         setTransactions(parsedTransactions);
         setCurrentPage(1);
+        setHasMore(result.hasMore);
+        setApiPage(2);
       }
     } catch (err) {
       setError(
@@ -96,6 +106,35 @@ function App() {
       setIsLoading(false);
     }
   }, [walletAddress]);
+
+  const handleLoadMore = useCallback(async (): Promise<void> => {
+    if (isLoadingMore || !hasMore || !savedAddress) return;
+
+    setIsLoadingMore(true);
+    setError(null);
+
+    try {
+      const result = await fetchTransactionPage(savedAddress, apiPage);
+      const parsedTransactions = parseTransactions(
+        result.transfers,
+        savedAddress
+      );
+
+      if (parsedTransactions.length > 0) {
+        setTransactions(prev => [...prev, ...parsedTransactions]);
+        setHasMore(result.hasMore);
+        setApiPage(prev => prev + 1);
+      } else {
+        setHasMore(false);
+      }
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to load more transactions"
+      );
+    } finally {
+      setIsLoadingMore(false);
+    }
+  }, [apiPage, hasMore, isLoadingMore, savedAddress]);
 
   const handleSortChange = (field: SortField): void => {
     if (sortField === field) {
@@ -160,6 +199,20 @@ function App() {
               totalPages={totalPages}
               onPageChange={setCurrentPage}
             />
+            {hasMore && (
+              <div className="load-more-section">
+                <p className="load-more-info">
+                  Showing {transactions.length} transactions
+                </p>
+                <button
+                  className="btn btn-secondary"
+                  onClick={handleLoadMore}
+                  disabled={isLoadingMore}
+                >
+                  {isLoadingMore ? "Loading..." : `Load ${PAGE_SIZE} More`}
+                </button>
+              </div>
+            )}
           </div>
         )}
       </main>

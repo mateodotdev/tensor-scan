@@ -1,10 +1,16 @@
 .table-container {
+  display: block;
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
   border-top: 1px solid var(--border-color);
 }
 
 table {
   width: 100%;
+  min-width: 500px;
   border-collapse: collapse;
   font-size: 0.8rem;
 }
@@ -108,10 +114,15 @@ tr:hover td {
 
 @media (max-width: 768px) {
   .table-container {
-    margin: 0 calc(-1 * var(--spacing-sm));
+    margin: 0 calc(-1 * var(--spacing-md));
+    padding: 0 var(--spacing-sm);
     border-radius: 0;
     border-left: none;
     border-right: none;
+  }
+
+  table {
+    min-width: 450px;
   }
 
   th, td {
@@ -119,12 +130,13 @@ tr:hover td {
     font-size: 0.7rem;
   }
 
-
+  /* Hide Fee column (5th) on tablet */
   th:nth-child(5),
   td:nth-child(5) {
     display: none;
   }
 
+  /* Hide Tx Hash column (6th) on tablet */
   th:nth-child(6),
   td:nth-child(6) {
     display: none;
@@ -145,21 +157,37 @@ tr:hover td {
 }
 
 @media (max-width: 480px) {
+  .table-container {
+    margin: 0 calc(-1 * var(--spacing-sm));
+    padding: 0;
+  }
+
   table {
-    font-size: 0.7rem;
+    min-width: 320px;
+    font-size: 0.65rem;
   }
 
   th, td {
     padding: var(--spacing-xs) var(--spacing-xs);
   }
 
+  th {
+    font-size: 0.5rem;
+  }
 
+  /* Hide From/To column (4th) on mobile */
   th:nth-child(4),
   td:nth-child(4) {
     display: none;
   }
 
   .amount {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+  }
+
+  .badge {
+    font-size: 0.5rem;
+    padding: 1px 3px;
   }
 }
+

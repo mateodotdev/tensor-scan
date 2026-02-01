@@ -41,6 +41,21 @@
   gap: var(--spacing-lg);
 }
 
+.load-more-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg) 0;
+}
+
+.load-more-info {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  text-transform: lowercase;
+  letter-spacing: 0.12em;
+}
+
 .loading-state {
   display: flex;
   flex-direction: column;
